@@ -11,7 +11,7 @@ n = 20  # number of city
 city = random.randint(0, 1000, (n, 2))  # x,y, random generate n cities
 
 # trivial example
-n = 9
+n = 8
 city = np.array([
     [0, 0],
     [0, 1],
@@ -21,7 +21,6 @@ city = np.array([
     [1, 1],
     [1, 2],
     [1, 3],
-    [0.5, 0]
 ])
 
 # Berlin52 example
