@@ -17,7 +17,6 @@ class TSP(object):
 
     # 读取城市数据， 计算城市之间的距离
     def initCity(self):
-
         a = np.loadtxt(
             r'E:\F disk\GitHub\Some-Algorithms-for-TSP\Ant colony for TSP\berlin52.txt')
         self.city = a[:, 1:]
