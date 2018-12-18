@@ -22,19 +22,6 @@ class TSP(object):
         self.city = a[:, 1:]
         self.cityNumber = self.city.shape[0]
 
-        self.city = np.array([
-            [0, 0],
-            [0, 1],
-            [0, 2],
-            [0, 3],
-            [0, 4],
-            [1, 0],
-            [1, 1],
-            [1, 2],
-            [1, 3],
-            [1, 4]
-        ])
-        self.cityNumber = 10
         self.D = np.zeros((self.cityNumber, self.cityNumber))
         self.compute_dis()
 

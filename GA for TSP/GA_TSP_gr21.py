@@ -1,44 +1,47 @@
-import numpy as np
-from numpy import random
-import matplotlib.pyplot as plt
 from math import sqrt
-
+import matplotlib.pyplot as plt
+from numpy import random
+import numpy as np
 
 class TSP(object):
     def __init__(self):
         self.liveCount = 100
-        self.iter_max = 500
+        self.iter_max = 1000
         self.initCity()
         self.ga = GA(aCrossRate=1,
-                     aMutationRate=0.02,
+                     aMutationRate=0.002,
                      aLifeCount=self.liveCount,
                      aGeneLength=self.cityNumber,
                      aMatchFun=self.matchFun())
 
     # 读取城市数据， 计算城市之间的距离
     def initCity(self):
-        self.city = np.array([
-            [0, 0],
-            [0, 1],
-            [0, 2],
-            [0, 3],
-            [0, 4],
-            [1, 0],
-            [1, 1],
-            [1, 2],
-            [1, 3],
-            [1, 4]
-        ])
-        self.cityNumber = 10
-        self.D = np.zeros((self.cityNumber, self.cityNumber))
-        self.compute_dis()
+        n = 21
+        D = np.zeros((n, n))
+        t = np.loadtxt(
+            r'E:\F disk\GitHub\Some-Algorithms-for-TSP\Ant colony for TSP\gr21.txt')
+        a = []
+        for i in range(t.shape[0]):
+            for j in range(t.shape[1]):
+                a.append(t[i][j])
+        k = 0
+        for i in range(n):
+            for j in range(i+1):
+                D[i][j] = a[k]
+                D[j][i] = a[k]
+                k += 1
+        for i in range(n):
+            D[i][i] = 1e-4
+
+        self.D = D
+        self.cityNumber = 21
 
     def compute_dis(self):
         for i in range(0, self.cityNumber):
             for j in range(0, self.cityNumber):
                 if i != j:
                     temp = (self.city[i, :] - self.city[j, :])
-                    self.D[i][j] = ((sqrt(np.square(temp).sum())))
+                    self.D[i][j] = (round(sqrt(np.square(temp).sum())))
                 else:
                     self.D[i][j] = 0.0001
 
@@ -52,7 +55,7 @@ class TSP(object):
             dis += self.D[life.gene[i]][life.gene[i+1]]
         dis += self.D[life.gene[self.cityNumber - 1]][life.gene[0]]
         life.distance = dis
-        return np.exp(self.cityNumber**3/dis)
+        return np.exp(self.cityNumber**4/dis)# **4
 
     # 运行TSP问题
     def run(self):
