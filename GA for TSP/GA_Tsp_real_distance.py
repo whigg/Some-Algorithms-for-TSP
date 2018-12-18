@@ -7,7 +7,7 @@ from math import sqrt
 class TSP(object):
     def __init__(self):
         self.liveCount = 100
-        self.iter_max = 100
+        self.iter_max = 500
         self.initCity()
         self.ga = GA(aCrossRate=1,
                      aMutationRate=0.02,
@@ -22,19 +22,19 @@ class TSP(object):
         self.city = a[:, 1:]
         self.cityNumber = self.city.shape[0]
 
-        self.city = np.array([
-            [0, 0],
-            [0, 1],
-            [0, 2],
-            [0, 3],
-            [0, 4],
-            [1, 0],
-            [1, 1],
-            [1, 2],
-            [1, 3],
-            [1, 4]
-        ])
-        self.cityNumber = 10
+        # self.city = np.array([
+        #     [0, 0],
+        #     [0, 1],
+        #     [0, 2],
+        #     [0, 3],
+        #     [0, 4],
+        #     [1, 0],
+        #     [1, 1],
+        #     [1, 2],
+        #     [1, 3],
+        #     [1, 4]
+        # ])
+        # self.cityNumber = 10
         self.D = np.zeros((self.cityNumber, self.cityNumber))
         self.compute_dis()
 
@@ -57,7 +57,7 @@ class TSP(object):
             dis += self.D[life.gene[i]][life.gene[i+1]]
         dis += self.D[life.gene[self.cityNumber - 1]][life.gene[0]]
         life.distance = dis
-        return np.exp(self.cityNumber**2/dis)
+        return np.exp(self.cityNumber**3/dis)
 
     # 运行TSP问题
     def run(self):
