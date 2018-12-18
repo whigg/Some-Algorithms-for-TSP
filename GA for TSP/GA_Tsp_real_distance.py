@@ -9,7 +9,7 @@ class TSP(object):
         self.liveCount = 100
         self.iter_max = 100
         self.initCity()
-        self.ga = GA(aCrossRate=0.9,
+        self.ga = GA(aCrossRate=1,
                      aMutationRate=0.02,
                      aLifeCount=self.liveCount,
                      aGeneLength=self.cityNumber,
@@ -43,7 +43,7 @@ class TSP(object):
             for j in range(0, self.cityNumber):
                 if i != j:
                     temp = (self.city[i, :] - self.city[j, :])
-                    self.D[i][j] = (round(sqrt(np.square(temp).sum())))
+                    self.D[i][j] = ((sqrt(np.square(temp).sum())))
                 else:
                     self.D[i][j] = 0.0001
 
@@ -57,7 +57,7 @@ class TSP(object):
             dis += self.D[life.gene[i]][life.gene[i+1]]
         dis += self.D[life.gene[self.cityNumber - 1]][life.gene[0]]
         life.distance = dis
-        return np.exp(self.cityNumber*6/dis)
+        return np.exp(self.cityNumber**2/dis)
 
     # 运行TSP问题
     def run(self):
@@ -151,8 +151,8 @@ class GA(object):
         self.lives = newLives
         self.generation += 1
 
-
     # 在种群内部，反复随机选择两个个体进行交叉操作， 新个体代替旧个体， 以维持liveCount不变
+
     def cross(self):
         for i in range(int(self.lifeCount*0.1)):
             # 随机选择2个parent进行两点交叉
