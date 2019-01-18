@@ -6,10 +6,10 @@ import numpy as np
 class TSP(object):
     def __init__(self):
         self.liveCount = 100
-        self.iter_max = 1000
+        self.iter_max = 500
         self.initCity()
         self.ga = GA(aCrossRate=1,
-                     aMutationRate=0.002,
+                     aMutationRate=0.02,
                      aLifeCount=self.liveCount,
                      aGeneLength=self.cityNumber,
                      aMatchFun=self.matchFun())
@@ -67,7 +67,8 @@ class TSP(object):
             self.ga.mutation()
             self.ga.generation += 1
         self.ga.judge()
-        print(self.ga.best.gene, self.ga.best.distance, self.ga.best.fitness)
+        print('best_path:', self.ga.best.gene)
+        print('shortest_distance:%.2f, best_fitness: %.2f' % (self.ga.best.distance, self.ga.best.fitness))
 
 
 # 个体类
