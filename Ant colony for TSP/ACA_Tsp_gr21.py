@@ -25,9 +25,9 @@ for i in range(n):
 #####################################################
 # 2. Initialize all parameters
 
-m = 30  # number of ants
+m = 21  # number of ants
 alpha = 1  # Pheromone importance factor
-beta = 3  # Heuristic Function Importance Factor
+beta = 5  # Heuristic Function Importance Factor
 vol = 0.2   # volatilization Factor
 Q = 10  # Pheromone constant
 Heu_F = 1/D  # Heuristic function
@@ -36,7 +36,7 @@ Tau = np.ones((n, n))   # Pheromone matrix
 Table = np.zeros((m, n), dtype=np.int32)    # path of all ants in one iteration
 Length = np.zeros((m, 1))
 iteration = 0
-iter_max = 200  # iter_max
+iter_max = 120  # iter_max
 
 # best route until this iteration
 Route_best = np.zeros((iter_max, n), dtype=np.int32)
@@ -141,22 +141,18 @@ while iteration < iter_max:
 
 #####################################################
 # 4. display the path
-print('Route_best:', Route_best[iter_max-1])
-print('ants number:%d	iter_max:%d	Limit_iter:%d	   best_length:%f \n' %
+print('最优路径:', Route_best[iter_max-1])
+print('蚂蚁数目:%d	iter_max:%d	收敛时迭代次数:%d	   最短路径长度:%f \n' %
       (m, iter_max, Limit_iter,	Length_best[iter_max - 1]))
-'''
-x = []
-y = []
-for i in range(n):
-    x.append(city[Route_best[iter_max-1, i]][0])
-    y.append(city[Route_best[iter_max-1, i]][1])
-x.append(city[Route_best[iter_max-1, 0]][0])
-y.append(city[Route_best[iter_max-1, 0]][1])
 
-plt.plot(x, y, color='b', linewidth=2, alpha=0.5)
-plt.scatter(x, y, color='r', s=25)
-plt.title('Route_Best')
-plt.xlabel('x axis')
-plt.ylabel('y axis')
+x = [i for i in range(iter_max)]
+y = [Length_best[i] for i in range(iter_max)]
+
+plt.plot(x, y, color='b', linewidth=2, alpha=0.5,label='收敛曲线')
+plt.legend()
+plt.grid(linestyle='-.')
+plt.scatter(x, y, color='r', s=3)
+plt.title('收敛曲线  蚂蚁数m = %d  iter_max = %d   最短路径 = %d' % (m, iter_max, Length_best[iter_max-1]))
+plt.xlabel('迭代次数',FontProperties=zh_font)
+plt.ylabel('最短路径长度')
 plt.show()
-'''

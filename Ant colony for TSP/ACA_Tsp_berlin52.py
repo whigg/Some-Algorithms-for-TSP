@@ -24,9 +24,9 @@ city = np.array([
 ])
 
 # Berlin52 example
-n = 52
-a = np.loadtxt('./Berlin52.txt')
-city = a[:, 1:]
+# n = 52
+# a = np.loadtxt('./Berlin52.txt')
+# city = a[:, 1:]
 
 
 D = np.zeros((n, n))
@@ -37,7 +37,7 @@ def compute_dis():
         for j in range(0, n):
             if i != j:
                 temp = (city[i, :] - city[j, :])
-                D[i][j] = (round(sqrt(np.square(temp).sum())))
+                D[i][j] = ((sqrt(np.square(temp).sum())))
             else:
                 D[i][j] = 1e-4
 
@@ -57,7 +57,7 @@ Tau = np.ones((n, n))*0.01   # Pheromone matrix
 Table = np.zeros((m, n), dtype=np.int32)    # path of all ants in one iteration
 Length = np.zeros((m, 1))
 iteration = 0
-iter_max = 3000  # iter_max
+iter_max = 400  # iter_max
 
 # best route until this iteration
 Route_best = np.zeros((iter_max, n), dtype=np.int32)
